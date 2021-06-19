@@ -26,4 +26,7 @@ public class Chat {
     @OneToMany
     private List<User> users;
 
+    public List<User> getUsers() {
+        return users;
+    }
 }

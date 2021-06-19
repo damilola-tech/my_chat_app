@@ -1,59 +1,39 @@
 package com.chatapplication.service.chat;
 
 import com.chatapplication.data.models.Chat;
-import com.chatapplication.data.models.Message;
-import com.chatapplication.service.message.MessageService;
-import com.chatapplication.service.user.UserService;
-import com.chatapplication.web.dto.ChatDto;
+import com.chatapplication.data.models.User;
+import com.chatapplication.data.repository.ChatRepository;
+import com.chatapplication.web.exceptions.ChatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
 public class ChatServiceImpl implements ChatService {
 
+    @Autowired
+    ChatRepository chatRepository;
+
     @Override
-    public Chat createChat(ChatDto chatDto) {
+    public Chat createChatForMessage(User firstUser, User secondUser) {
 
         Chat chat = new Chat();
 
-        Long b = messageDto.getMessageId();
-        List<Message> a = chatService.getMessageById(b);
-        chat.setMessages(a);
-
-        chat.setReceiver(userService.getUserById(messageDto.getReceiverId));
+        chat.getUsers().add(firstUser);
+        chat.getUsers().add(secondUser);
+        return chat;
     }
 
     @Override
-    public Chat getChatById(Long chatId) {
-        return null;
+    public Chat getChatById(Long chatId) throws ChatException {
+
+        if (chatId == null) {
+            throw new ChatException("Chat id cannot be null");
+        }
+
+        Chat chat;
+        chat = chatRepository.findById(chatId).orElse(null);
+        return chat;
     }
-
-
-//    @Override
-//    public List<Message> getAllMessages(Long chatId) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Chat getChatById(Long chatId) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void deleteChat(Long chatId) {
-//
-//    }
-//
-//    @Override
-//    public String viewUserImage(Long userId) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void addMessageToChat(Long chatId, MessageDto messageDto) {
-//
-//    }
+//    public Chat saveChat()
 }

@@ -1,13 +1,14 @@
 package com.chatapplication.service.chat;
 
 import com.chatapplication.data.models.Chat;
-import com.chatapplication.web.dto.ChatDto;
+import com.chatapplication.data.models.User;
+import com.chatapplication.web.exceptions.ChatException;
 
 public interface ChatService {
 
-    Chat createChat(ChatDto chatDto);
+    Chat createChatForMessage(User firstUser, User secondUser);
 
-    Chat getChatById(Long chatId);
+    Chat getChatById(Long chatId) throws ChatException;
 
 //    List<Message> getAllMessages(Long chatId);
 

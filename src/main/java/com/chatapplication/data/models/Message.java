@@ -37,6 +37,6 @@ public class Message {
     private User receiver;
 
     @NotEmpty
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Chat chat;
 }

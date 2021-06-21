@@ -28,11 +28,9 @@ public class Message {
     private LocalDateTime createdAt;
 
     @NotNull
-    @Column(nullable = false)
     @OneToOne
     private User sender;
 
-    @Column(nullable = false)
     @OneToOne
     private User receiver;
 

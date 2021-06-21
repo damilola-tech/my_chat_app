@@ -20,7 +20,6 @@ public class Chat {
 
     @OneToMany()
     @NotEmpty
-    @Column(nullable = false)
     private List<Message> messages;
 
     @OneToMany

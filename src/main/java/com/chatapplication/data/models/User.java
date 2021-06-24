@@ -3,12 +3,16 @@ package com.chatapplication.data.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -29,11 +33,16 @@ public class User {
 
     private String imageUrl;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ToString.Exclude
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @NotEmpty
     @Column(length = 500)
     private List<Chat> chats;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public String getName() {
+        return String.format("%s %s", firstName, lastName);
+    }
 }

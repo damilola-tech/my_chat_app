@@ -9,12 +9,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message {
+public class Message implements Comparable<Message> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,15 +29,18 @@ public class Message {
     private LocalDateTime createdAt;
 
     @NotNull
-    @Column(nullable = false)
     @OneToOne
     private User sender;
 
-    @Column(nullable = false)
     @OneToOne
     private User receiver;
 
-    @NotEmpty
+    @NotNull
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Chat chat;
+
+    @Override
+    public int compareTo(Message other) {
+        return this.getCreatedAt().compareTo(other.getCreatedAt());
+    }
 }

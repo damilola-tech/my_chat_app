@@ -6,11 +6,14 @@ import com.chatapplication.data.models.User;
 import com.chatapplication.data.repository.MessageRepository;
 import com.chatapplication.service.chat.ChatService;
 import com.chatapplication.service.user.UserService;
-import com.chatapplication.web.exceptions.ChatException;
+import com.chatapplication.web.exceptions.ChatNotFoundException;
 import com.chatapplication.web.dto.MessageDto;
+import com.chatapplication.web.exceptions.UserNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MessageServiceImpl implements MessageService {
     @Autowired
@@ -19,13 +22,14 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private ChatService chatService;
 
+    @Autowired
     private MessageRepository messageRepository;
 
     @Override
-    public Message createMessage(MessageDto messageDto) throws Exception, ChatException {
+    public Message createMessage(MessageDto messageDto) throws ChatNotFoundException, UserNotFoundException {
 
         if (messageDto == null) {
-            throw new Exception("Message body cannot be null");
+            throw new NullPointerException("Message body cannot be null");
         }
 
         Message message = new Message();
@@ -39,13 +43,19 @@ public class MessageServiceImpl implements MessageService {
         message.setSender(sender);
 
         Chat chat;
-        if (messageDto.getChatId() <= 0) {
-            chat = chatService.createChatForMessage(sender, receiver);
+        if (messageDto.getChatId() == null) {
+            chat = chatService.createChat(sender, receiver);
             receiver.getChats().add(chat);
             sender.getChats().add(chat);
         } else {
             chat = chatService.getChatById(messageDto.getChatId());
         }
+
+        log.info("Sender --> {}", sender);
+        log.info("Receiver --> {}", receiver);
+        log.info("Chat --> {}", chat);
+        log.info("Message --> {}", message);
+
         message.setChat(chat);
         chat.getMessages().add(message);
 

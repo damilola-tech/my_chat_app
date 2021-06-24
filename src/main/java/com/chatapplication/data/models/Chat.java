@@ -23,9 +23,9 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ToString.Exclude
-    @OneToMany()
     @NotEmpty
+    @OneToMany()
+    @ToString.Exclude
     @Column(nullable = false)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Message> messages;

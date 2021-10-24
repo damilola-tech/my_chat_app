@@ -15,7 +15,7 @@ import java.util.Comparator;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message implements Comparable<Message> {
+ public class Message implements Comparable<Message> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,3 +44,4 @@ public class Message implements Comparable<Message> {
         return this.getCreatedAt().compareTo(other.getCreatedAt());
     }
 }
+

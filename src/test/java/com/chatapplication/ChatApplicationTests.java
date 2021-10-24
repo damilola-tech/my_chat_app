@@ -16,6 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 class ChatApplicationTests {
 
+//    Spring Boot provides datasource at runtime, once you have the database dependency.
     @Autowired
     DataSource dataSource;
 

@@ -10,8 +10,5 @@ public class ChatApplication {
 
         SpringApplication.run(ChatApplication.class, args);
     }
-//    @GetMapping("/")
-//    public String hello() {
-//        return "Hello world";
-//    }
+//    To run this application, type and enter-- localhost:8080/1
 }

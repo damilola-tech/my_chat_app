@@ -9,10 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Data
 @Entity
@@ -46,3 +44,4 @@ public class User {
         return String.format("%s %s", firstName, lastName);
     }
 }
+

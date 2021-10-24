@@ -38,6 +38,8 @@ public class Chat {
 
     private String title;
 
+    // The @Data annotation already sufficed for the getters below.
+    // The code below is just to show how getter is written here.
     public List<User> getUsers() {
         return users;
     }
@@ -51,5 +53,4 @@ public class Chat {
 
         return messages;
     }
-
 }
